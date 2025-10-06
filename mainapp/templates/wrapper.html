@@ -1,0 +1,13 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>TT</title>
+        <link rel="stylesheet" href="{% static 'src/style.css' %}">
+        <script src="{% static 'src/script.js' %}"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>
