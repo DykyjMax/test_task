@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from .models import Product, Category
 from django.core.paginator import Paginator
+from rest_framework import generics, filters
+from rest_framework.pagination import PageNumberPagination
+from .serializers import ProductSerializer
 
 # Create your views here.
 def product_detail(request, pk):
@@ -24,7 +27,7 @@ def product_list(request):
         products = products.filter(price__lte=max_price)
 
 
-    paginator = Paginator(products, 6)
+    paginator = Paginator(products, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -36,6 +39,43 @@ def product_list(request):
         'max_price': max_price,
     }
     return render(request, 'product_list.html', context)
+
+
+
+# _____REST_API_______
+
+class ProductPagination(PageNumberPagination):
+    page_size = 2
+    page_size_query_param = 'page_size'
+    max_page_size = 20
+
+
+class ProductListAPIView(generics.ListAPIView):
+    queryset = Product.objects.all().order_by('id')
+    serializer_class = ProductSerializer
+    pagination_class = ProductPagination
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        #Фільтри
+        category_id = self.request.GET.get('category')
+        min_price = self.request.GET.get('min_price')
+        max_price = self.request.GET.get('max_price')
+
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+        if min_price:
+            queryset = queryset.filter(price__gte=min_price)
+        if max_price:
+            queryset = queryset.filter(price__lte=max_price)
+
+        return queryset
+
+
+class ProductDetailAPIView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 

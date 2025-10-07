@@ -9,8 +9,6 @@ from apps.product.models import Product
 # Create your views here.
 
 
-# ------------- СЕРВІСНІ ФУНКЦІЇ -------------
-
 def _ensure_session(request):
     if not request.session.session_key:
         request.session.create()
