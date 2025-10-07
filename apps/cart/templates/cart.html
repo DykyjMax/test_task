@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container">
+  <h1>Корзина</h1>
+
+  {% if items %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Фото</th>
+        <th>Товар</th>
+        <th>Ціна</th>
+        <th>Кількість</th>
+        <th>Сума</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td><img src="{{ item.product.image.url }}" alt="{{ product.name }}" ></td>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.product.price|floatformat:2 }} грн.</td>
+        <td>
+          <form method="post" action="{% url 'cart:update_item' item.id %}" class="d-inline">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="update">
+            <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+            <button type="submit" class="btn btn-sm btn-primary">Оновити</button>
+          </form>
+        </td>
+        <td>{{ item.get_total_price|floatformat:2 }} грн.</td>
+        <td>
+          <form method="post" action="{% url 'cart:update_item' item.id %}" class="d-inline">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="remove">
+            <button type="submit" class="btn btn-sm btn-danger">Видалити</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="text-end mt-3">
+    <h4>Загальна сума: {{ total|floatformat:2 }} грн.</h4>
+  </div>
+
+  {% else %}
+  <p>Ваша корзина порожня.</p>
+  {% endif %}
+</div>
+{% endblock %}

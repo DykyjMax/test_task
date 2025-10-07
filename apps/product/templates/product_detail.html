@@ -1,6 +1,9 @@
 {% extends "index.html" %}
 {% block content %}
 <div class="container">
+    <div>
+        <a href="{% url 'cart:detail' %}">Кошик</a>
+    </div>
     <h1>Детальна інформація про товар</h1>
     <div>
         <img src="{{ product.image.url }}" alt="{{ product.name }}">

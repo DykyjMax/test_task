@@ -1,6 +1,9 @@
 {% extends "index.html" %}
 {% block content %}
 <div class="container">
+  <div>
+    <a href="{% url 'cart:detail' %}">Кошик</a>
+  </div>
     <h1>Список товарів</h1>
     <form method="get" class="filters">
         <label>Категорія:</label>
@@ -26,8 +29,9 @@
             <h2>{{ product.name }}</h2>
             <p>{{ product.price }}</p>
             <div>
-                <a href="{% url 'product_detail' product.pk %}">View Details</a>
-                <button>Add to cart</button>
+                <a href="{% url 'product_detail' product.pk %}">Детальніше</a>
+                <input type="number" name="quantity" min="0" step="1">
+                <button class="add-to-cart" data-product-id="{{ product.id }}">Укошик</button>
             </div>
         </div>
         {% endfor %}
