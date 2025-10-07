@@ -1,0 +1,8 @@
+
+img{
+    max-width: 360px;
+}
+input[type="number"]{
+    min-width: 10px;
+    max-width: 70px;
+}

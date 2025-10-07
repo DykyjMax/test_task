@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'mainapp',
     'apps.product',
     'apps.cart',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
