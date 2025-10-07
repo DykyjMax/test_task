@@ -25,8 +25,8 @@ from django.urls import re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls')),
-    path('products/', include('apps.product.urls')),
-    path('cart/', include('apps.cart.urls')),
+    path('', include('apps.product.urls')),
+    path('', include('apps.cart.urls')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

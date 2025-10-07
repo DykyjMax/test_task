@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container">
+    <h1>Детальна інформація про товар</h1>
+    <div>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    </div>
+    <div>
+        <span>{{ product.name }}</span>
+        <span>{{ product.price }}</span>
+        <button>Add to cart</button>
+    </div>
+    <div>
+        <div>{{ product.description }}</div>
+    </div>
+</div>
+{% endblock %}
+

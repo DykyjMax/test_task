@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container">
+    <h1>Список товарів</h1>
+    <form method="get" class="filters">
+        <label>Категорія:</label>
+        <select name="category" onchange="this.form.submit()">
+          <option value="">Всі</option>
+          {% for cat in categories %}
+          <option value="{{ cat.id }}" {% if cat.id|stringformat:"s" == selected_category %}selected{% endif %}>{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+    
+        <label>Мін. ціна:</label>
+        <input type="number" name="min_price" value="{{ min_price }}" min="0" step="0.01">
+    
+        <label>Макс. ціна:</label>
+        <input type="number" name="max_price" value="{{ max_price }}" min="0" step="0.01">
+    
+        <button type="submit">Фільтрувати</button>
+    </form>
+    <div class="product-list">
+        {% for product in page_obj %}
+        <div class="product-item">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.price }}</p>
+            <div>
+                <a href="{% url 'product_detail' product.pk %}">View Details</a>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}">Попередня</a>
+        {% endif %}
+      
+        <span>Сторінка {{ page_obj.number }} із {{ page_obj.paginator.num_pages }}</span>
+      
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">Наступна</a>
+        {% endif %}
+      </div>
+</div>
+{% endblock %}
