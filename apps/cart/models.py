@@ -28,6 +28,14 @@ class CartItem(models.Model):
     def __str__(self):
         return f"{self.product.name} ({self.quantity})"
 
+    def save(self, *args, **kwargs):
+        existing = CartItem.objects.filter(cart=self.cart, product=self.product).first()
+        if existing and existing.pk != self.pk:
+            existing.quantity += self.quantity
+            existing.save()
+            return existing
+        super().save(*args, **kwargs)
+
     def get_total_price(self):
         return self.product.price * self.quantity
 

@@ -18,7 +18,13 @@
     <tbody>
       {% for item in items %}
       <tr>
-        <td><img src="{{ item.product.image.url }}" alt="{{ product.name }}" ></td>
+        <td>
+          {% if item.product.image %}
+            <img src="{{ item.product.image.url }}" alt="{{ product.name }}">
+          {% else %}
+            <img src="#" alt="Альтернативне зображення">
+          {% endif %}
+        </td>
         <td>{{ item.product.name }}</td>
         <td>{{ item.product.price|floatformat:2 }} грн.</td>
         <td>

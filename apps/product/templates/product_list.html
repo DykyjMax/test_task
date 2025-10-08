@@ -25,7 +25,11 @@
     <div class="product-list">
         {% for product in page_obj %}
         <div class="product-item">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+              <img src="#" alt="Альтернативне зображення">
+            {% endif %}
             <h2>{{ product.name }}</h2>
             <p>{{ product.price }}</p>
             <div>

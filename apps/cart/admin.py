@@ -5,11 +5,14 @@ from .models import Cart, CartItem
 
 class CartItemInline(admin.TabularInline):
     model = CartItem
-    extra = 0
-    readonly_fields = ('product', 'quantity', 'get_total_price')
+    extra = 1
+    readonly_fields = ('get_total_price',)
     fields = ('product', 'quantity', 'get_total_price')
+    raw_id_fields = ('product',)
 
     def get_total_price(self, obj):
+        if not obj.pk:
+            return "-"
         return f"{obj.get_total_price():.2f} грн."
     get_total_price.short_description = "Сума"
 
