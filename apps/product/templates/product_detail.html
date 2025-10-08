@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
-<div class="container">
+<div class="container product-item">
     <div>
         <a href="{% url 'cart:detail' %}">Кошик</a>
     </div>
@@ -11,7 +11,8 @@
     <div>
         <span>{{ product.name }}</span>
         <span>{{ product.price }}</span>
-        <button>Add to cart</button>
+        <input type="number" name="quantity" min="0" step="1">
+        <button class="add-to-cart" data-product-id="{{ product.id }}">Укошик</button>
     </div>
     <div>
         <div>{{ product.description }}</div>
