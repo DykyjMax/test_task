@@ -42,13 +42,13 @@
     </div>
     <div class="pagination">
         {% if page_obj.has_previous %}
-          <a href="?page={{ page_obj.previous_page_number }}">Попередня</a>
+          <a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}">Попередня</a>
         {% endif %}
       
         <span>Сторінка {{ page_obj.number }} із {{ page_obj.paginator.num_pages }}</span>
       
         {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">Наступна</a>
+          <a href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}">Наступна</a>
         {% endif %}
       </div>
 </div>
